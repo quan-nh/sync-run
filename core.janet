@@ -11,5 +11,6 @@
    "externalId" (get data "external_id")
   })
 
-(each activity (strava/running-activities 7)
-  (smashrun/send-run (strava->smashrun activity)))
+(let [opts (struct ;process/args)]
+  (each activity (strava/running-activities (scan-number (get opts "-d")))
+    (smashrun/send-run (strava->smashrun activity))))
